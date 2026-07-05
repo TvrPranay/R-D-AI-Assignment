@@ -19,8 +19,6 @@ def mean_l1_nearest(theta_deg: float, M: float, X: float, x_obs: np.ndarray, y_o
     curve = np.column_stack([x_curve, y_curve])
     obs = np.column_stack([x_obs, y_obs])
 
-    # For each observed point, match to the closest curve point by Euclidean distance.
-    # Then compute L1 distance in coordinates to that matched point.
     d2 = (
         (obs[:, 0][:, None] - curve[:, 0][None, :]) ** 2
         + (obs[:, 1][:, None] - curve[:, 1][None, :]) ** 2
@@ -35,7 +33,6 @@ def mean_l1_nearest(theta_deg: float, M: float, X: float, x_obs: np.ndarray, y_o
 
 
 def main():
-    # Use paths relative to this script so execution works from any working directory.
     import os
 
     project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -66,8 +63,6 @@ def main():
     best_score = np.inf
 
     def best_X_l1_nearest(theta_deg: float, M: float):
-        # x(t) shifts by +X, so for any fixed (theta,M), matching is still nearest-point based.
-        # We approximate X by searching a small set of candidate values.
         candidates = np.linspace(X_bounds[0], X_bounds[1], 61)
         best_x = None
         best_s = np.inf
